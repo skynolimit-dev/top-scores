@@ -1,0 +1,17 @@
+.dark-gray {
+    padding-top: 5px;
+    font-size: 0.8rem;
+    color: #5f5e5e;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.copy-icon {
+    position: relative;
+    top: 1px;
+    padding-left: 10px;
+}
+
+.widget-image {
+    border-radius: 10px;
+}

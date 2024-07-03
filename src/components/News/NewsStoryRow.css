@@ -1,0 +1,8 @@
+ion-thumbnail {
+    --size: 80px;
+    --border-radius: 10px;
+  }
+
+  p.story-description {
+    font-size: 0.8rem;
+  }

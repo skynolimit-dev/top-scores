@@ -1,0 +1,21 @@
+.competition-row {
+    /* background-color: black; */
+    background-color: black;
+    color: darkgray;
+    padding: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.competition-heading {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.competition-sub-heading {
+    padding-top: 4px;
+    font-size: 0.8rem;
+    text-align: center;
+}

@@ -1,0 +1,15 @@
+body {
+    background-color: #333;
+}
+
+.ion-page {
+    /* Allow for the notch (dynamic island), otherwise content is hidden */
+    padding-top: env(safe-area-inset-top) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    padding-left: env(safe-area-inset-left) !important;
+    padding-right: env(safe-area-inset-right) !important;
+}
+
+.tab-selected {
+    color: rgb(169,190,235) !important;
+}

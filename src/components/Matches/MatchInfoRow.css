@@ -1,0 +1,18 @@
+ion-grid {
+    --ion-grid-columns: 27;
+    --ion-grid-padding: 2px;
+    --ion-grid-column-padding: 3px;
+}
+
+ion-col.match-info {
+    font-size: 0.6rem;
+    font-weight: bold;
+}
+
+.home-team-name {
+    padding-right: 12px;
+}
+
+.away-team-name {
+    padding-left: 12px;
+}

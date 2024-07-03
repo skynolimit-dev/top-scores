@@ -1,0 +1,23 @@
+.match-status-col-text {
+    font-size: 0.8rem;
+}
+
+ion-chip {
+    opacity: 0.8 !important;
+}
+
+ion-row.match-status {
+    margin-bottom: 5px;
+}
+
+ion-col.match-status {
+    text-align: center;
+}
+
+ion-img.tv-logo {
+    width: 15px;
+    height: 15px;
+    margin: 0 auto;
+    display: block;
+    margin-right: 10px;
+}

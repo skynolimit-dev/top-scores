@@ -1,0 +1,11 @@
+.no-matches-container {
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.no-matches-image {
+    border-radius: 2%;
+}

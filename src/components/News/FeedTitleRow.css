@@ -1,0 +1,14 @@
+.feed-title-row {
+    /* background-color: black; */
+    background-color: black;
+    color: darkgray;
+    padding: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.feed-title {
+    font-size: 0.7rem;
+    text-align: center;
+    text-transform: uppercase;
+}
