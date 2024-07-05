@@ -68,7 +68,7 @@ let timeoutCheckUserPreferences: any;
 setupIonicReact();
 
 // Global variable to store the timeout for getting the latest match counts
-let setTimeoutMatchCounts: any;
+let timeoutMatchCounts: any;
 
 const matchCountsDefaults = {
   now: 0,
@@ -80,13 +80,18 @@ const matchCountsDefaults = {
 
 const TopScoresApp: React.FC = () => {
 
-  const [matchCounts, setMatchCounts] = useState(matchCountsDefaults);
+  const [matchCountNow, setMatchCountNow] = useState(matchCountsDefaults.now);
+  const [matchCountToday, setMatchCountToday] = useState(matchCountsDefaults.today);
+  const [matchCountTodayOnTv, setMatchCountTodayOnTv] = useState(matchCountsDefaults.todayOnTv);
+  const [matchCountNowOnTv, setMatchCountNowOnTv] = useState(matchCountsDefaults.nowOnTv);
   // Use state to enure quick loading #react #darkarts
   const [matchesInitializedState, setMatchesInitializedState] = useState(false);
   const [serverHealthyState, setServerHealthyState] = useState(false);
   const [serverHealthyPreviousState, setServerHealthyPreviousState] = useState(false);
   const [appInitializedState, setAppInitializedState] = useState(false);
   const [showSetupScreen, setShowSetupScreen] = useState(false);
+
+  let timeoutInitData: any;
 
   // Initialise the app data when the app is opened
   App.addListener('appStateChange', ({ isActive }) => {
@@ -146,13 +151,21 @@ const TopScoresApp: React.FC = () => {
   // Create the user and match data
   async function initData() {
 
+    // Repeat every 60 seconds
+    if (timeoutInitData)
+      clearTimeout(timeoutInitData);
+    timeoutInitData = setTimeout(() => {
+      initData();
+    }, 20 * 1000);
+
     // If the last init is within the past 30 seconds, return
-    if (new Date().getTime() - lastDataInitDate.getTime() < 30 * 1000) {
+    if (new Date().getTime() - lastDataInitDate.getTime() < 10 * 1000) {
       return;
     }
 
     // Otherwise, initialise the app data
     else {
+      console.info('Initialising app data...');
       lastDataInitDate = new Date();
       await initUserData(store);
       deviceId = _.get(await store.get('userDeviceInfo'), 'id');
@@ -168,11 +181,17 @@ const TopScoresApp: React.FC = () => {
   }
 
   function setLatestMatchCounts() {
-    if (setTimeoutMatchCounts)
-      clearTimeout(setTimeoutMatchCounts);
+    if (timeoutMatchCounts)
+      clearTimeout(timeoutMatchCounts);
+
     const matchCountsGot = getMatchCounts();
-    setMatchCounts(matchCountsGot);
-    setTimeoutMatchCounts = setTimeout(setLatestMatchCounts, 5000);
+
+    setMatchCountNow(matchCountsGot.now);
+    setMatchCountToday(matchCountsGot.today);
+    setMatchCountTodayOnTv(matchCountsGot.todayOnTv);
+    setMatchCountNowOnTv(matchCountsGot.nowOnTv);
+
+    timeoutMatchCounts = setTimeout(setLatestMatchCounts, 5000);
   }
 
   function setMatchesInitialized() {
@@ -197,7 +216,7 @@ const TopScoresApp: React.FC = () => {
   }
 
   useEffect(() => {
-
+    
     if (!areMatchesInitialized || !appInitializedState)
       initApp();
 
@@ -213,23 +232,23 @@ const TopScoresApp: React.FC = () => {
     // Clear the interval when the component is unmounted (otherwise things get crazy!)
     return () => clearInterval(timeoutId);
 
-  }, [matchCounts, matchesInitializedState, serverHealthyState, deviceId, appInitializedState, showSetupScreen]);
+  }, [matchCountNow, matchCountToday, matchCountTodayOnTv, matchCountNowOnTv, matchesInitializedState, serverHealthyState, deviceId, appInitializedState, showSetupScreen]);
 
 
   function renderBadgeMatchesToday() {
-    if (matchCounts && matchCounts['today'] > 0) {
-      let color = matchCounts['now'] > 0 ? "danger" : "primary";
+    if (matchCountToday > 0) {
+      let color = matchCountNow > 0 ? "danger" : "primary";
       return (
-        <IonBadge color={color}>{matchCounts['today']}</IonBadge>
+        <IonBadge color={color}>{matchCountToday}</IonBadge>
       );
     }
   }
 
   function renderBadgeMatchesOnTvToday() {
-    if (matchCounts.todayOnTv > 0) {
-      let color = matchCounts.nowOnTv > 0 ? "danger" : "primary";
+    if (matchCountTodayOnTv > 0) {
+      let color = matchCountNowOnTv> 0 ? "danger" : "primary";
       return (
-        <IonBadge color={color}>{matchCounts.todayOnTv}</IonBadge>
+        <IonBadge color={color}>{matchCountTodayOnTv}</IonBadge>
       );
     }
   }

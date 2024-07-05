@@ -275,7 +275,7 @@ export function getMatches() {
 function setMatchCountNow() {
     const matchesToFilter = _.get(matches, 'fixtures');
     if (matchesToFilter && matchesToFilter.length > 0)
-        _.set(counts, 'now', _.filter(matchesToFilter, (match: any) => match.timeLabel && match.timeLabel !== 'FT' && match.timeLabel !== 'AET').length);
+        _.set(counts, 'now', _.filter(matchesToFilter, (match: any) => match.started && !match.finished).length);
 }
 
 // Sets the count of the matches being played today
@@ -285,7 +285,7 @@ function setMatchCountToday() {
     const today = new Date().toISOString().split('T')[0];
     const matchesToFilter = _.get(matches, 'fixtures');
     if (matchesToFilter && matchesToFilter.length > 0)
-        _.set(counts, 'today', matchesToFilter.filter((match: any) => match.date === today && ((match.timeLabel && match.timeLabel !== 'FT' && match.timeLabel !== 'AET') || match.kickOffTime)).length);
+        _.set(counts, 'today', matchesToFilter.filter((match: any) => match.date === today && !match.finished).length);
 }
 
 // Sets the count of matches on TV playing now
@@ -293,7 +293,7 @@ function setMatchCountToday() {
 function setMatchCountNowOnTv() {
     const matchesToFilter = _.get(matches, 'fixtures');
     if (matchesToFilter && matchesToFilter.length > 0)
-        _.set(counts, 'nowOnTv', matchesToFilter.filter((match: any) => match.timeLabel && match.timeLabel !== 'FT' && match.timeLabel !== 'AET' && match.tvInfo && match.tvInfo.channelInfo && match.tvInfo.channelInfo.shortName).length);
+        _.set(counts, 'nowOnTv', matchesToFilter.filter((match: any) => match.started && !match.finished && match.tvInfo && match.tvInfo.channelInfo && match.tvInfo.channelInfo.shortName).length);
 }
 
 // Sets the count of matches on TV for today
@@ -304,7 +304,7 @@ function setMatchCountTodayOnTv() {
     const matchesToFilter = _.get(matches, 'fixtures');
     if (matchesToFilter && matchesToFilter.length > 0) {
         // First, find matches on now
-        let filteredMatches = matchesToFilter.filter((match: any) => match.date === today && ((match.timeLabel && match.timeLabel !== 'FT' && match.timeLabel !== 'AET') || match.kickOffTime));
+        let filteredMatches = matchesToFilter.filter((match: any) => match.date === today && !match.finished);
         // Then, filter on matches with TV info
         _.set(counts, 'todayOnTv', filteredMatches.filter((match: any) => match.tvInfo && match.tvInfo.channelInfo && match.tvInfo.channelInfo.shortName).length);
     }

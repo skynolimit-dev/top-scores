@@ -11,7 +11,6 @@ async function addListeners(store: any) {
 
     try {
         await PushNotifications.addListener('registration', async (token) => {
-            console.info('Push registration token: ', token);
             await setToken(store, token);
         });
     } catch (error) {
