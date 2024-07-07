@@ -31,7 +31,7 @@ function renderAboutInfo() {
                 <h2>Acknowledgements and data sources</h2>
                 <ul>
                     <li><a target='_blank' href='https://www.bbc.co.uk/sport/football'>BBC Sport</a></li>
-                    <li><a target='_blank' href='https://www.fotmob.com'>FotMob</a></li> 
+                    <li><a target='_blank' href='https://www.fotmob.com'>FotMob</a></li>
                     <li><a target='_blank' href='http://clubelo.com/'>Football Club Elo Ratings</a></li>
                     <li><a target='_blank' href='https://eloratings.net/'>World Football Elo Ratings</a></li>
                     <li><a target='_blank' href='https://www.theguardian.com/football'>The Guardian Football</a></li>
@@ -84,7 +84,7 @@ function renderAdvancedInfo() {
             </IonCardHeader>
             <IonCardContent>
                 <div className='ion-padding-bottom'>
-                    
+
                 </div>
             </IonCardContent>
         </IonCard>
@@ -110,6 +110,16 @@ const About: React.FC<AboutProps> = ({ deviceId }) => {
         setIsToastOpen(true);
     }
 
+    function renderApiServer() {
+        if (rootDomain.includes('local')) {
+            return (
+                <div className='dark-gray ion-padding-bottom'>
+                    <span>API server: {rootDomain}</span>
+                </div>
+            )
+        }
+    }
+
     useEffect(() => {
         populateVersionInfo();
     }, [versionInfo]);
@@ -117,9 +127,9 @@ const About: React.FC<AboutProps> = ({ deviceId }) => {
     return (
         <Fragment>
             {renderAboutInfo()}
-            {renderWidgetInfo()} 
+            {renderWidgetInfo()}
             {renderVersionInfo(versionInfo)}
-            
+
             {/* Troubleshooting info */}
             <div className='dark-gray' onClick={() => copyDeviceId(deviceId)}>
                 <span>
@@ -135,10 +145,8 @@ const About: React.FC<AboutProps> = ({ deviceId }) => {
                     duration={5000}
                 ></IonToast>
             </div>
-            <div className='dark-gray ion-padding-bottom'>
-                <span>API server: {rootDomain}</span>
-            </div>
-            
+            {renderApiServer()}
+
         </Fragment>
     );
 };
