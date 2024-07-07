@@ -1,0 +1,101 @@
+ion-grid {
+    --ion-grid-columns: 31;
+    --ion-grid-padding: 2px;
+    --ion-grid-column-padding: 3px;
+}
+
+.loading-container {
+    --ion-item-background: #181818 !important;
+}
+
+.match-details {
+    border-top: 1px solid #3c3c3c;
+    border-left: 1px solid #3c3c3c;
+    border-right: 1px solid #3c3c3c;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.match-details-time-label {
+    color: darkgray;
+}
+
+.match-details-goal-row {
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #28292a;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.match-details-missed-penalty-row {
+    border-radius: 5px;
+    border: 1px solid black;
+    
+    background-color: #2d060b;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.goal-football {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.goal-player-name {
+    font-weight: bold;
+}
+
+.player-on {
+    color: white;
+}
+
+.player-on-icon {
+    position: relative;
+    top: 2px;
+}
+
+.player-off {
+    color: darkgray
+}
+
+.player-off-icon {
+    position: relative;
+    top: 2px;
+}
+
+.card-yellow {
+    color: #f9d71c;
+    position: relative;
+    top: 2px;
+}
+
+.card-red {
+    color: #c4032b;
+    position: relative;
+    top: 2px;
+}
+
+.card-yellowred {
+    color: #c4032b;
+    position: relative;
+    top: 2px;
+}
+
+.penalties-title {
+    border-top: 1px solid #3c3c3c;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.penalty-missed-player-name {
+    color: darkgray;
+}
+
+.match-url-container {
+    margin-top: 10px;
+    border-top: 1px solid #3c3c3c;
+    --ion-item-background: #181818 !important;
+}

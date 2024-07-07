@@ -120,7 +120,7 @@ const MatchCentreLabel: React.FC<ContainerProps> = ({ match, matchFilter, checkF
                 <span className='match-time-label half-time ion-text-nowrap'>{match.timeLabel}</span>
             );
         }
-        else if (matchFilter !== 'results' && match.timeLabel && match.finished) {
+        else if (match.timeLabel && match.finished) {
             return (
                 <span className='match-time-label ion-text-nowrap'>{match.timeLabel}</span>
             );
@@ -133,11 +133,6 @@ const MatchCentreLabel: React.FC<ContainerProps> = ({ match, matchFilter, checkF
         else if (matchFilter !== 'results' && match.kickOffTime) {
             return (
                 <span className='kick-off-time ion-text-nowrap'>{match.kickOffTime}</span>
-            );
-        }
-        else if (matchFilter === 'results' && match.url) {
-            return (
-                <a href={match.url} target='_blank'><IonIcon icon={documentTextOutline} aria-label="Read match report" className='match-report' /></a>
             );
         }
         else {

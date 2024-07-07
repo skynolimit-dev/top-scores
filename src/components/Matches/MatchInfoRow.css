@@ -1,5 +1,5 @@
 ion-grid {
-    --ion-grid-columns: 27;
+    --ion-grid-columns: 31;
     --ion-grid-padding: 2px;
     --ion-grid-column-padding: 3px;
 }
@@ -10,9 +10,24 @@ ion-col.match-info {
 }
 
 .home-team-name {
+    font-size: 0.9rem;
     padding-right: 12px;
 }
 
 .away-team-name {
+    font-size: 0.9rem;
     padding-left: 12px;
+}
+
+.match-selected {
+    border: 1px solid #3c3c3c;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #181818;
+}
+
+.match-selector-arrow {
+    font-size: 0.8rem;
+    color: darkgray;
 }
