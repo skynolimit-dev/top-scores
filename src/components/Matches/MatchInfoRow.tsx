@@ -65,7 +65,6 @@ const MatchInfoRow: React.FC<ContainerProps> = ({ index, match, matchFilter, che
     const [matchSelected, setMatchSelected] = useState(false);
 
     function selectMatch(match: any, selectionState: boolean) {
-        console.log(`Match ${match.id} selected: ${selectionState}`);
         // Only select matches that have either started or finished, i.e. not upcoming fixtures
         if (match.finished || match.started) {
             setMatchSelected(selectionState);

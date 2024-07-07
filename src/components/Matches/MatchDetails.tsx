@@ -2,7 +2,7 @@ import './MatchDetails.css';
 
 import { IonRow, IonCol, IonIcon, IonItem, IonLabel, IonGrid, IonSpinner } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import { caretUp, caretDown, square, football } from 'ionicons/icons';
+import { caretUp, caretDown, square, book, tv, people } from 'ionicons/icons';
 
 import { requestTimeout, apiUrlPrefix } from '../../lib/globals';
 
@@ -26,7 +26,10 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
     const [lastUpdated, setLastUpdated] = useState(new Date(new Date().getTime() - 5 * 60000));
     const [matchEvents, setMatchEvents] = useState<any[]>([]);
     const [matchPenalties, setMatchPenalties] = useState<any[]>([]);
-    const [matchUrl, setMatchUrl] = useState<string>('');
+    const [matchReportUrl, setMatchReportUrl] = useState<string>('');
+    const [highlightsUrl, setHighlightsUrl] = useState<string>('');
+    const [stadiumName, setStadiumName] = useState<string>('');
+    const [attendance, setAttendance] = useState<number>(-1);
 
     async function setMatchDetails(matchId: string) {
 
@@ -43,8 +46,11 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
                     return event.type === 'Goal' || event.type === 'Card' || event.type === 'Substitution' || event.type === 'MissedPenalty';
                 });
                 setMatchEvents(events);
-                setMatchPenalties(response.data.penalties);
-                setMatchUrl(response.data.url);
+                setMatchPenalties(_.get(response, 'data.penalties', []));
+                setMatchReportUrl(_.get(response, 'data.matchReportUrl', ''));
+                setHighlightsUrl(_.get(response, 'data.highlightsUrl', ''));
+                setStadiumName(_.get(response, 'data.stadiumName', ''));
+                setAttendance(_.get(response, 'data.attendance', -1));
                 setLastUpdated(new Date());
             }
         } catch (error) {
@@ -91,9 +97,9 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
         else {
             return (
                 <IonRow key={`match-details-item-${index}`} className='match-details-goal-row'>
-                <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
-                <IonCol size="23" class='ion-text-end goal-player-name'>{event.playerName}</IonCol>
-                <IonCol size="4" className='ion-text-center'>⚽️</IonCol>
+                    <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
+                    <IonCol size="23" class='ion-text-end goal-player-name'>{event.playerName}</IonCol>
+                    <IonCol size="4" className='ion-text-center'>⚽️</IonCol>
                 </IonRow>
             );
         }
@@ -113,9 +119,9 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
         else {
             return (
                 <IonRow key={`match-details-item-${index}`}>
-                <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
-                <IonCol size="23" class='ion-text-end'>{event.playerName}</IonCol>
-                <IonCol size="4" className='ion-text-center'><IonIcon aria-hidden="true" icon={square} className={cardClassName}/></IonCol>
+                    <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
+                    <IonCol size="23" class='ion-text-end'>{event.playerName}</IonCol>
+                    <IonCol size="4" className='ion-text-center'><IonIcon aria-hidden="true" icon={square} className={cardClassName} /></IonCol>
                 </IonRow>
             );
         }
@@ -166,11 +172,11 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
 
     function renderMissedPenalty(event: any, index: any) {
         let classesPlayerName = 'penalty-missed-player-name';
-        
+
         if (event.isHome) {
             classesPlayerName += 'ion-text-start';
             return (
-                
+
                 <IonRow key={`match-details-item-${index}`} className='match-details-missed-penalty-row'>
                     <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
                     <IonCol size="4" className='ion-text-center'>❌</IonCol>
@@ -182,9 +188,9 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
             classesPlayerName += 'ion-text-end';
             return (
                 <IonRow key={`match-details-item-${index}`} className='match-details-missed-penalty-row'>
-                <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
-                <IonCol size="23" class={classesPlayerName}>Penalty miss: {event.playerName}</IonCol>
-                <IonCol size="4" className='ion-text-center'>❌</IonCol>
+                    <IonCol size="4" className='match-details-time-label'>{event.time}</IonCol>
+                    <IonCol size="23" class={classesPlayerName}>Penalty miss: {event.playerName}</IonCol>
+                    <IonCol size="4" className='ion-text-center'>❌</IonCol>
                 </IonRow>
             );
         }
@@ -194,11 +200,11 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
         const symbol = event.type === 'Goal' ? '⚽️' : '❌';
         let classesPlayerName = event.type === 'Goal' ? 'goal-player-name ' : 'penalty-missed-player-name ';
         const classRow = event.type === 'Goal' ? 'match-details-goal-row' : 'match-details-missed-penalty-row';
-        
+
         if (event.isHome) {
             classesPlayerName += 'ion-text-start';
             return (
-                
+
                 <IonRow key={`match-details-item-${index}`} className={classRow}>
                     <IonCol size="4" className='match-details-time-label'>Pen</IonCol>
                     <IonCol size="4" className='ion-text-center'><span className='goal-football'>{symbol}</span></IonCol>
@@ -210,9 +216,9 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
             classesPlayerName += 'ion-text-end';
             return (
                 <IonRow key={`match-details-item-${index}`} className={classRow}>
-                <IonCol size="4" className='match-details-time-label'>Pen</IonCol>
-                <IonCol size="23" class={classesPlayerName}>{event.player}</IonCol>
-                <IonCol size="4" className='ion-text-center'><span className='goal-football'>{symbol}</span></IonCol>
+                    <IonCol size="4" className='match-details-time-label'>Pen</IonCol>
+                    <IonCol size="23" class={classesPlayerName}>{event.player}</IonCol>
+                    <IonCol size="4" className='ion-text-center'><span className='goal-football'>{symbol}</span></IonCol>
                 </IonRow>
             );
         }
@@ -235,17 +241,49 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
 
     }
 
-    function renderMatchUrl() {
-        return (
-            <IonRow key='match-details-url' class='match-details-url'>
-                <IonCol>
-                    <IonItem lines="none" className='match-url-container'>
-                        <IonLabel className='ion-text-center'><a href={matchUrl} target='_blank'>Read the match report</a></IonLabel>
-                    </IonItem>
-                </IonCol>
-            </IonRow>
-        );
+    function renderMatchReportLink() {
+        if (matchReportUrl && matchReportUrl.length > 0) {
+            return (
+                <IonRow key='match-details-url' class='match-details-url'>
+                    <IonCol>
+                        <IonItem lines="none" className='match-url-container'>
+                            <IonIcon aria-hidden="true" icon={book} slot="end"></IonIcon>
+                            <IonLabel className='ion-text-center'><a href={matchReportUrl} target='_blank'>Read the match report</a></IonLabel>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+            );
+        }
+    }
 
+    function renderHighlightsLink() {
+        if (highlightsUrl && highlightsUrl.length > 0) {
+            return (
+                <IonRow key='match-highlights-url' class='match-details-url'>
+                    <IonCol>
+                        <IonItem lines="none" className='match-url-container'>
+                            <IonIcon aria-hidden="true" icon={tv} slot="end"></IonIcon>
+                            <IonLabel className='ion-text-center'><a href={highlightsUrl} target='_blank'>View match highlights</a></IonLabel>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+            );
+        }
+    }
+
+    function renderAttendanceInfo() {
+        if (stadiumName && stadiumName.length > 0 && attendance > 0) {
+            return (
+                <IonRow key='match-attendance-info' class='match-details-url'>
+                    <IonCol>
+                        <IonItem lines="none" className='match-url-container'>
+                            <IonIcon aria-hidden="true" icon={people} slot="end"></IonIcon>
+                            <IonLabel className='ion-text-center'>Attendance: {attendance} ({stadiumName})</IonLabel>
+                        </IonItem>
+                    </IonCol>
+                </IonRow>
+            );
+        }
     }
 
     useEffect(() => {
@@ -267,7 +305,9 @@ const MatchDetails: React.FC<ContainerProps> = ({ matchId }) => {
                     {matchPenalties.map((event: any, index: number) => (
                         { ...renderMatchPenalty(event, index) }
                     ))}
-                    {renderMatchUrl()}
+                    {renderMatchReportLink()}
+                    {renderHighlightsLink()}
+                    {renderAttendanceInfo()}
                 </IonGrid>
             </IonCol>
         </IonRow>
