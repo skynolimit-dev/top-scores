@@ -99,9 +99,9 @@ const MatchInfoRow: React.FC<ContainerProps> = ({ index, match, matchFilter, che
                 <IonRow key={`match-info-row-${match.id}`} class={matchSelectedClasses} onClick={() => selectMatch(match, !matchSelected)}>
                     <IonCol key={`home-team-name-${match.id}`} size="10" class="home-team-name ion-text-right ion-text-wrap">{match.homeTeam.names.displayName.replace('/', ' / ')}</IonCol>
                     <IonCol key={`home-team-logo-${match.id}`} size="2" class="ion-text-right"><TeamLogo teamNames={match.homeTeam.names} className='team-logo' logoCache={logoCache} /></IonCol>
-                    <IonCol key={`home-team-score-${match.id}`} size="2" class="ion-text-right ion-text-nowrap">{match.started || match.finished || match.predictorMatchStatus ? match.homeTeam.score.toString() : ''}</IonCol>
+                    <IonCol key={`home-team-score-${match.id}`} size="2" class="ion-text-right ion-text-nowrap match-score">{match.started || match.finished || match.predictorMatchStatus ? match.homeTeam.score.toString() : ''}</IonCol>
                     <IonCol key={`match-centre-${match.id}`} size="3" class="ion-text-center ion-text-nowrap"><MatchCentre match={match} matchFilter={matchFilter} checkForMatchUpdates={checkForMatchUpdates} controlPredictorMatch={controlPredictorMatch} store={store} deviceId={deviceId} /></IonCol>
-                    <IonCol key={`away-team-score-${match.id}`} size="2" class="ion-text-left ion-text-nowrap">{match.started || match.finished || match.predictorMatchStatus ? match.awayTeam.score.toString() : ''}</IonCol>
+                    <IonCol key={`away-team-score-${match.id}`} size="2" class="ion-text-left ion-text-nowrap match-score">{match.started || match.finished || match.predictorMatchStatus ? match.awayTeam.score.toString() : ''}</IonCol>
                     <IonCol key={`away-team-logo-${match.id}`} size="2" class="ion-text-left"><TeamLogo teamNames={match.awayTeam.names} className='team-logo' logoCache={logoCache} /></IonCol>
                     <IonCol key={`away-team-name-${match.id}`} size="8" class="away-team-name ion-text-left ion-text-wrap">{match.awayTeam.names.displayName.replace('/', ' / ')}</IonCol>
                     <IonCol key={`match-selected-indicator-${match.id}`} size="2" class="match-selector-arrow">{renderMatchSelectorArrow(match)}</IonCol>

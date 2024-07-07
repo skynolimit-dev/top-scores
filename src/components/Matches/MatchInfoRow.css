@@ -19,6 +19,10 @@ ion-col.match-info {
     padding-left: 12px;
 }
 
+.match-score {
+    font-size: 0.9rem;
+}
+
 .match-selected {
     border: 1px solid #3c3c3c;
     border-radius: 5px;
