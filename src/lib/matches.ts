@@ -145,7 +145,6 @@ async function fetchData(matchFilter: string, deviceId: string, forceUpdate = fa
 }
 
 // Checks if we need to call fetchData to get match updates, based on the match filter and kick off dates/times
-// When a predictor match is started, this is called to force an immediate update
 export async function checkForMatchUpdates(deviceId: string, forceUpdate = false) {
 
     const matchFilter = getMatchFilter();
