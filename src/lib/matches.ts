@@ -345,6 +345,11 @@ async function kickOffPredictorMatch(match: any, store: any) {
     _.set(match, 'time', 1);
     _.set(match, 'timeLabel', "1'");
     _.set(match, 'statusMessages', []);
+    // Set the match time to a random number between 90 and 95
+    _.set(match, 'maxTime', Math.floor(Math.random() * 6) + 90);
+
+    // TODO: Remove!
+    isExtraTimeNeeded(match);
 
     store.set(`predictorMatch-${match.id}`, match);
 }
@@ -405,28 +410,43 @@ async function updatePredictorMatch(matchId: string, store: any) {
     let match = await store.get(`predictorMatch-${matchId}`);
 
     const status = _.get(match, 'predictorMatchStatus');
+    const maxTime = _.get(match, 'maxTime');
 
     if (status !== 'finished') {
 
         const time = _.get(match, 'time');
 
-        if (time < 90) {
+        if (time < maxTime) {
             updateMatchScore(match);
             _.set(match, 'time', time + 1);
             _.set(match, 'timeLabel', `${time + 1}'`);
-        } else {
-            console.info('Predictor match finished:', match.homeTeam.names.displayName, match.homeTeam.score, '-', match.awayTeam.score, match.awayTeam.names.displayName);
-            _.set(match, 'time', 90);
+        }
+        else {
+            // If a team has won or extra time isn't needed, then finish the match
+            if (match.homeTeam.score !== match.awayTeam.score || !isExtraTimeNeeded(match)) {
+                const isExtraTime = _.get(match, 'isExtraTime', false);
+                console.info('Scores are not level or extra time is not needed, so finishing match...');
+                if (isExtraTime) {
+                    _.set(match, 'statusMessages', ['After extra time']);
+                }
+                endMatch(match, isExtraTime);
+            }
 
-            _.set(match, 'timeLabel', 'FT');
-            _.set(match, 'statusMessages', ['FT']);
-            _.set(match, 'predictorMatchStatus', 'finished');
+            // Otherwise, start extra time if it hasn't already been played
+            else if (!_.get(match, 'isExtraTime', false)) {
+                console.info('Scores are level, so going to extra time...');
+                _.set(match, 'isExtraTime', true);
+                // Set maxtime to a random number between 120 and 125
+                const maxTime = Math.floor(Math.random() * 6) + 120;
+                _.set(match, 'maxTime', maxTime);
+                _.set(match, 'statusMessages', ['Extra time being played']);
+            }
 
-            // If the scores are level and the competition subheading is 'Final', add extra time
-            // TODO: Add extra time
-            if (match.homeTeam.score === match.awayTeam.score && match.competition.subHeading === 'Final') {
-                console.info('Scores are level, so going to penalties...');
-                match.statusMessages.push(getPenaltyWinnerLabel(match));
+            // If the scores are still level after extra time, then go to penalties
+            else if (match.homeTeam.score === match.awayTeam.score) {
+                console.info('Scores are still level after extra time, so going to penalties...');
+                _.set(match, 'statusMessages', [getPenaltyWinnerLabel(match)]);
+                endMatch(match, false);
             }
         }
 
@@ -435,6 +455,25 @@ async function updatePredictorMatch(matchId: string, store: any) {
 
     }
 
+}
+
+// Returns whether extra time is needed for the given match
+function isExtraTimeNeeded(match: any) {
+    const extraTimeNeeded = (
+        match.competition.name.toLowerCase().includes('fa cup') ||
+        match.competition.subHeading.toLowerCase().includes('final') ||
+        match.competition.subHeading.toLowerCase().includes('round of')
+    )
+    console.info('Extra time needed for match:', extraTimeNeeded);
+    return extraTimeNeeded;
+}
+
+// Ends the given predictor match
+function endMatch(match: any, isAfterExtraTime: boolean) {
+    console.info('Predictor match finished');
+    _.set(match, 'isExtraTime', false);
+    _.set(match, 'timeLabel', isAfterExtraTime ? 'AET' : 'FT');
+    _.set(match, 'predictorMatchStatus', 'finished');
 }
 
 // Returns the label for the penalty winner, which is decided at random
