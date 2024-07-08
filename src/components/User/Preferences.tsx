@@ -184,7 +184,7 @@ const Preferences: React.FC<PreferencesProps> = ({ initMatches, logoCache, store
                 </IonCardHeader>
     
                 <IonCardContent>
-                    <p className='ion-margin-bottom'>Customise the matches you see and get notifications for. To apply the defaults, click this button to return to the setup screen...</p>
+                    <p className='ion-margin-bottom ion-text-justify'>Customise the matches you see and get notifications for. To apply the defaults, click this button to return to the setup screen...</p>
                     <IonButton expand='block' color='warning' className='ion-margin-top ion-margin-bottom' onClick={() => window.location.href ="/setup"}>Return to Setup</IonButton>
                     <h2 className='ion-padding-top'>Competitions</h2>
                     {renderCompetitionPreferencesCheckboxesChecked(checkedCompetitions, preferences, initMatches, deviceId, store, isPreferenceChecked, togglePreferenceCheck)}
@@ -254,9 +254,9 @@ const Preferences: React.FC<PreferencesProps> = ({ initMatches, logoCache, store
                 </IonCardHeader>
     
                 <IonCardContent>
-                    <div className="ion-padding-bottom">Choose which competitions you would like to follow.</div>
-                    <div className="ion-padding-bottom">For any competitions you select, you'll get scores and notifications for all matches in that competition.</div>
-                    <div className="ion-padding-bottom">All competitions...</div>
+                    <div className='ion-padding-bottom ion-text-justify'>Choose below which competitions you would like to follow.</div>
+                    <div className='ion-padding-bottom ion-text-justify'>For any competitions you select, you'll get scores and notifications for all matches in that competition.</div>
+                    <div className='ion-padding-bottom'>All competitions...</div>
                     <CompetitionsPicker keyPrefix='allCompetitions' checkedCompetitions={checkedCompetitions} preferences={preferences} initMatches={initMatches} deviceId={deviceId} store={store} competitions={competitions} isPreferenceChecked={isPreferenceChecked} togglePreferenceCheck={togglePreferenceCheck} />
                 </IonCardContent>
             </IonCard>
@@ -276,8 +276,8 @@ const Preferences: React.FC<PreferencesProps> = ({ initMatches, logoCache, store
                 </IonCardHeader>
     
                 <IonCardContent>
-                    <p className="ion-padding-bottom">Choose which {category} teams you would like to follow.</p>
-                    <p className="ion-padding-bottom">For any teams you select, you'll see scores and get notifications (where possible) for all matches involving that team.</p>
+                    <p className='ion-padding-bottom ion-text-justify'>Choose below which {category} teams you would like to follow.</p>
+                    <p className='ion-padding-bottom ion-text-justify'>For any teams you select, you'll see scores and get notifications (where possible) for all matches involving that team.</p>
                     <TeamsPicker keyPrefix='allTeams' checkedTeams={checkedTeams} preferences={preferences} initMatches={initMatches} logoCache={logoCache} deviceId={deviceId} store={store} category={category} teams={teams} isPreferenceChecked={isPreferenceChecked} togglePreferenceCheck={togglePreferenceCheck} />
                 </IonCardContent>
             </IonCard>
@@ -363,7 +363,9 @@ const Preferences: React.FC<PreferencesProps> = ({ initMatches, logoCache, store
                 </IonCardHeader>
     
                 <IonCardContent>
-                    <div className="ion-padding-bottom">The Predictor makes use of advanced quantum time tunnelling techniques to play out matches from the future. Due to the inherently unstable nature of the spacetime continuum and occasional unforseen wormhole collapses, predictions are subject to change and are not guaranteed be 100% accurate. Maybe don't bet the house on them.</div>
+                    <div className='ion-padding-bottom ion-text-justify'>The Predictor makes use of advanced quantum time tunnelling techniques to play out matches from the future.</div>
+                    <div className='ion-padding-bottom ion-text-justify'>Due to the inherently unstable nature of the spacetime continuum, multiverse mismatches, and occasional unforseen wormhole collapses, predictions are subject to change and may occasionally differ from reality.</div>
+                    <div className='ion-text-justify'>I recommend not betting the house on them, or waiting for the universe to be patched.</div>
     
                     <h2 className='ion-padding-top'>Match speed</h2>
     

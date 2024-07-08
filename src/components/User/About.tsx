@@ -20,14 +20,17 @@ function renderAboutInfo() {
 
             <IonCardContent>
                 <div className='ion-padding-bottom'>
-                    <p>This app was developed by <a target='_blank' href='https://skynolimit.dev'>Sky No Limit</a>. Developers and key contributors:</p>
+                    <h2>Sky No Limit</h2>
+                    <p>This app was developed by <a target='_blank' href='https://skynolimit.dev'>Sky No Limit</a>.</p>
+                </div>
+                <div className='ion-padding-bottom'>
+                    <h2>Developers and key contributors:</h2>
                     <ul>
                         <li>Mike Wagstaff</li>
                         <li>Skyla Wagstaff</li>
                         <li>Nova Wagstaff</li>
                     </ul>
                 </div>
-
                 <h2>Acknowledgements and data sources</h2>
                 <ul>
                     <li><a target='_blank' href='https://www.bbc.co.uk/sport/football'>BBC Sport</a></li>
@@ -55,7 +58,7 @@ function renderWidgetInfo() {
             </IonCardHeader>
             <IonCardContent>
                 <div className='ion-padding-bottom'>
-                    <p>A <a href='https://itunes.apple.com/us/app/scriptable/id1405459188?mt=12'>Scriptable</a> based home screen widget is available.</p>
+                    <p className='ion-text-justify'>A <a href='https://itunes.apple.com/us/app/scriptable/id1405459188?mt=12'>Scriptable</a> based home screen widget is available.</p>
                     <IonButton className='ion-padding-top ion-padding-bottom' expand='block' href='https://github.com/mwagstaff/scriptable/tree/main/football-scores' target='_blank'>Download &amp; setup instructions</IonButton>
                     <img className='widget-image' src='https://github.com/mwagstaff/scriptable/raw/main/football-scores/screenshot.jpg' />
                 </div>
