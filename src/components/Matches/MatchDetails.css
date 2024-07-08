@@ -5,7 +5,7 @@ ion-grid {
 }
 
 .loading-container {
-    --ion-item-background: #181818 !important;
+    --ion-item-background: light-dark(white, #181818) !important;
 }
 
 .match-details {
@@ -17,22 +17,21 @@ ion-grid {
 }
 
 .match-details-time-label {
-    color: darkgray;
+    color: light-dark(#181818, darkgray);
 }
 
 .match-details-goal-row {
     border-radius: 5px;
-    border: 1px solid black;
-    background-color: #28292a;
+    border: 1px solid light-dark(lightgray, black);
+    background-color: light-dark(#f7f7f7, #28292a);
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .match-details-missed-penalty-row {
     border-radius: 5px;
-    border: 1px solid black;
-    
-    background-color: #2d060b;
+    border: 1px solid light-dark(lightgray, black);
+    background-color: light-dark(white, #2d060b);
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -47,7 +46,7 @@ ion-grid {
 }
 
 .player-on {
-    color: white;
+    color: light-dark(black, white);
 }
 
 .player-on-icon {
@@ -91,11 +90,11 @@ ion-grid {
 }
 
 .penalty-missed-player-name {
-    color: darkgray;
+    color: light-dark(black, darkgray);
 }
 
 .match-url-container {
     margin-top: 10px;
     border-top: 1px solid #3c3c3c;
-    --ion-item-background: #181818 !important;
+    --ion-item-background: light-dark(white, #181818) !important;
 }

@@ -28,7 +28,7 @@ ion-col.match-info {
     border-radius: 5px;
     margin-left: 5px;
     margin-right: 5px;
-    background-color: #181818;
+    background-color: light-dark(white, #181818);
 }
 
 .match-selector-arrow {

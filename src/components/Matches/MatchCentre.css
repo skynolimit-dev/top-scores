@@ -1,18 +1,17 @@
-ion-icon.match-report {
-    margin-top: 5px;
-    color: darkgray;
+:root {
+    color-scheme: light dark;
 }
 
 span.kick-off-time {
-    color: darkgray;
+    color: light-dark(rgb(14, 14, 14), darkgray);
     font-size: 0.8rem;
 }
 
 span.match-time-label {
     border-radius: 10%;
     font-size: 0.8rem;
-    color: darkgray;
-    background: #333;
+    color: light-dark(rgb(14, 14, 14), darkgray);
+    background: light-dark(white, #333);
     padding: 5px;
 
     /* Pulse animation */

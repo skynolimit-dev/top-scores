@@ -1,7 +1,10 @@
+:root {
+    color-scheme: light dark;
+}
+
 .competition-row {
-    /* background-color: black; */
-    background-color: black;
-    color: darkgray;
+    background-color: light-dark(white, black);
+    color: light-dark(rgb(14, 14, 14), darkgray);
     padding: 3px;
     margin-top: 5px;
     margin-bottom: 5px;

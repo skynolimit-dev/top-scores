@@ -1,6 +1,10 @@
+:root {
+    color-scheme: light dark;
+}
+
 .date-row {
-    background-color: rgb(14, 14, 14);
-    color: white;
+    background-color: light-dark(white, rgb(14, 14, 14));
+    color: light-dark(rgb(14, 14, 14), white);
     padding: 10px;
     margin-top: 15px;
     margin-bottom: 5px;

@@ -1,6 +1,10 @@
+:root {
+    color-scheme: light dark;
+}
+
 .last-updated {
-    background-color: black;
-    color: #666;
+    background-color: light-dark(white, black);
+    color: light-dark(black, #666);
     text-align: center;
     padding: 10px;
     font-size: 0.8rem;
