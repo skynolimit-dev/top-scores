@@ -141,12 +141,7 @@ const MatchStatusRow: React.FC<ContainerProps> = ({ match, matchFilter }) => {
     }
 
     // Remove 'FT', 'AET' and 'HT' status messages as they will be displayed in the MatchCentre component for today's matches
-    if (matchFilter !== 'results')
-        statusMessages = match.statusMessages.filter((statusMessage: string) => statusMessage !== 'HT' && statusMessage !== 'FT' && statusMessage !== 'AET');
-
-    // For the results tab, remove the 'FT' status message but keep 'AET' as it's of interest
-    if (matchFilter === 'results')
-        statusMessages = match.statusMessages.filter((statusMessage: string) => statusMessage !== 'FT');
+    statusMessages = match.statusMessages.filter((statusMessage: string) => statusMessage !== 'HT' && statusMessage !== 'FT' && statusMessage !== 'AET');
 
     return (
         <IonRow key={`match-status-row-${match.id}`} class="match-status">
