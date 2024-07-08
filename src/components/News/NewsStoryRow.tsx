@@ -7,28 +7,6 @@ interface ContainerProps {
     story: any
 }
 
-function renderTitleRow(story: any) {
-    const key = `${story.title}-title`;
-    return (
-        <IonRow key={key}>
-            <IonCol size="auto">
-                <span className="feed-title">{story.title}</span>
-            </IonCol>
-        </IonRow>
-    );
-}
-
-function renderDescriptionRow(story: any) {
-    const key = `${story.title}-description`;
-    return (
-        <IonRow key={key}>
-            <IonCol size="auto">
-                <span>{story.description}</span>
-            </IonCol>
-        </IonRow>
-    );
-}
-
 function loadStory(url: string) {
     window.open(url, '_blank');
 }
