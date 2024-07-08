@@ -1,6 +1,6 @@
 import { IonCard, IonTitle, IonCardContent, IonCardHeader, IonButton } from '@ionic/react';
 
-interface SetupProps {
+interface ContainerProps {
     matchesCount: number;
 }
 
@@ -21,8 +21,8 @@ function getDelayedNoMatchesContent() {
                     <IonCardContent>
                         <img src='/images/no-matches.jpg' alt='No matches' className='no-matches-image ion-margin-top ion-margin-bottom' />
                         <p className='ion-padding'>Sorry, we couldn't find any matches based on your current settings.</p>
-                        <p className='ion-padding'>Would you like to head to the Settings screen to update your favourites?</p>
-                        <IonButton expand="block" color="tertiary" className='ion-padding-bottom' onClick={() => window.location.href="/user"}>Yes, let's do this</IonButton>
+                        <p className='ion-padding'>Would you like to head to the setup screen to update your favourites?</p>
+                        <IonButton expand="block" color="tertiary" className='ion-padding-bottom' onClick={() => window.location.href="/setup"}>Yes, let's do this</IonButton>
                     </IonCardContent>
                 </IonCard>
             </div>
@@ -31,12 +31,7 @@ function getDelayedNoMatchesContent() {
 }
 
 
-const NoMatches: React.FC<SetupProps> = ({ matchesCount }) => {
-
-    // Redirect to the user page
-    function redirectToUserScreen() {
-        window.location.href = '/user';
-    }
+const NoMatches: React.FC<ContainerProps> = ({ matchesCount }) => {
 
     async function delayLoading() {
         ready = false;
