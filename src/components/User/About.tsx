@@ -7,6 +7,8 @@ import { Fragment } from 'react/jsx-runtime';
 import { rootDomain } from '../../lib/globals';
 import './About.css';
 
+import { apiUrlPrefix } from '../../lib/globals';
+
 interface AboutProps {
     deviceId: string;
 }
@@ -50,7 +52,10 @@ function renderAboutInfo() {
 }
 
 
-function renderWidgetInfo() {
+function renderWidgetInfo(deviceId: string) {
+    // TODO: Use this URL for the widget download link going forward
+    // const widgetUri = `${apiUrlPrefix}/user/${deviceId}/widget/:widgetCategory/:tvOnly`;
+    const widgetUri = 'https://github.com/mwagstaff/scriptable/tree/main/football-scores';
     return (
         <IonCard>
             <IonCardHeader>
@@ -59,7 +64,7 @@ function renderWidgetInfo() {
             <IonCardContent>
                 <div className='ion-padding-bottom'>
                     <p className='ion-text-justify'>A <a href='https://itunes.apple.com/us/app/scriptable/id1405459188?mt=12'>Scriptable</a> based home screen widget is available.</p>
-                    <IonButton className='ion-padding-top ion-padding-bottom' expand='block' href='https://github.com/mwagstaff/scriptable/tree/main/football-scores' target='_blank'>Download &amp; setup instructions</IonButton>
+                    <IonButton className='ion-padding-top ion-padding-bottom' expand='block' href={widgetUri} target='_blank'>Download &amp; setup instructions</IonButton>
                     <img className='widget-image' src='https://github.com/mwagstaff/scriptable/raw/main/football-scores/screenshot.jpg' />
                 </div>
             </IonCardContent>
@@ -130,7 +135,7 @@ const About: React.FC<AboutProps> = ({ deviceId }) => {
     return (
         <Fragment>
             {renderAboutInfo()}
-            {renderWidgetInfo()}
+            {renderWidgetInfo(deviceId)}
             {renderVersionInfo(versionInfo)}
 
             {/* Troubleshooting info */}
